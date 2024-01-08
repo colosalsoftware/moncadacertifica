@@ -83,7 +83,9 @@
    
   </div>
     <button id="imprimir-btn">Imprimir</button>
-    
+    <div id="menu-btn" style="background-color: green;margin-top: 10px;padding: 10px; text-align: center; justify-content: center;font-size: 25px;">
+      <a href="https://moncada.click/" style="background-color: green;color: white; text-decoration: none;"><b>Regresar al Menú</b></a>
+    </div>
     <script>
       function actualizarNombre() {
         var nombre = new String();
@@ -162,13 +164,16 @@
 
     window.onload = function() {
       var imprimirBtn = document.getElementById('imprimir-btn');
+      var menuBtn = document.getElementById('menu-btn');
+      
       imprimirBtn.addEventListener('click', function() {
         var userAgent = navigator.userAgent.toLowerCase();
 
         // Verificar si el usuario está accediendo desde un dispositivo móvil
         var isMobile = /iphone|ipad|ipod|android|blackberry|windows phone/.test(userAgent);
         imprimirBtn.style.display = 'none'; // Oculta el botón antes de la impresión
-        
+        menuBtn.style.display = 'none';
+
         if (isMobile) {
           // Acceso desde un dispositivo móvil, llamar a la función compartirDocumento()
           compartirDocumento();
@@ -182,6 +187,7 @@
         // Espera 1 segundo y vuelve a mostrar el botón
         setTimeout(function() {
           imprimirBtn.style.display = 'block';
+          menuBtn.style.display = 'block';
         }, 1000);
       });
     };
