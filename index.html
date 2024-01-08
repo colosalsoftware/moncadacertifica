@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido a Moncada</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        #welcomeMessage {
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap; /* Para mantener los espacios en blanco en el mensaje. */
+        }
+        .vertical-center {
+            min-height: 100vh;  /* Fallback for browsers do not support vh unit */
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+</head>
+<body style="background-image: url('img/fondo.jpg');background-size: cover;">
+    <div class="container vertical-center">
+        <div class="text-center">
+            <div id="welcomeMessage" style="font-size: 30px;font-weight: bold;min-height: 200px;"></div>
+            <div class="button-container mt-3" >
+                <a href="MoncadaCertifica.html" class="btn btn-success" style="font-size: 18px;">Moncada Certifica - Alimentos</a>
+                <h4 style="margin-top: 40px;">¿Nueva Página o Funcionalidad?</h4>
+                <img src="img/flecha_abajo.gif" alt="Flecha hacia abajo" style="max-width: 50px;" class="mb-3">
+                <a href="https://colosalsoftware.com/" class="btn btn-secondary mt-2" style="font-size: 18px;">Incorporar nuevo recurso 🛠️</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const phrases = [
+            "<b style='color:green;'>Moncada,</b> bienvenidos a tu nuevo sitio.",
+            "Gracias por <b style='color:green;'>ser parte de la familia</b> Colosal Software.",
+            "Ahora tenemos este espacio <b style='color:green;'>reservado para ti</b>  y tus proyectos.",
+            "Esperamos que te sea de <b style='color:green;'>utilidad</b> y puedas sacarle todo el <b style='color:green;'>provecho.</b>",
+            "Aquí abajo <b style='color:green;'>podrás agregar todo lo que necesites</b> para tus negocios."
+        ];
+
+        let currentPhrase = 0;
+        let currentChar = 0;
+        let isDeleting = false;
+        const speed = 50; // Velocidad de escritura y borrado.
+
+        function typeWriter() {
+            const displayText = isDeleting 
+                ? phrases[currentPhrase].substring(0, currentChar--)
+                : phrases[currentPhrase].substring(0, currentChar++);
+
+            document.getElementById("welcomeMessage").innerHTML = displayText;
+
+            if (!isDeleting && currentChar === phrases[currentPhrase].length + 1) {
+                // Iniciar borrado después de un retraso
+                setTimeout(() => isDeleting = true, 1000);
+            } else if (isDeleting && currentChar === 0) {
+                // Pasar a la siguiente frase después de borrar
+                isDeleting = false;
+                currentPhrase++;
+
+                // Si hemos terminado con la última frase, volvemos a la primera
+                if (currentPhrase === phrases.length) {
+                    currentPhrase = 0;
+                }
+            }
+
+            setTimeout(typeWriter, isDeleting ? speed / 2 : speed);
+        }
+
+        typeWriter(); // Iniciar la función
+
+    </script>
+</body>
+</html>
